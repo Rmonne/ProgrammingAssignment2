@@ -21,7 +21,7 @@ makeCacheMatrix <- function(x = matrix()) {
 
 cacheSolve <- function(x, ...) {
         ## Return a matrix that is the inverse of 'x'
-  ## checks if cachematrix is present, and returns
+  ## checks if cached matrix is present, and returns
   m <- x$getMatrix()
   if(!is.null(m)) {
     print("getting cached solved matrix")
