@@ -1,36 +1,38 @@
-## Put comments here that give an overall description of what your
-## functions do
+## these two functions create a cached inverted matrix, to decrease the workload
+## of computing it multiple times
 
-## Write a short comment describing this function
+## this function creates a cached matrix, and has functions for geting and setting it
 
 makeCacheMatrix <- function(x = matrix()) {
-  x <- x
   solvedMatrix <- NULL
-  
+  # function to get the starting matrix
   get <- function() {x}
-  setMatrix <- function(y) {
-    solvedMatrix <<- NULL
-    x <<- y
-  }
-  setsolvedMatrix <- function(y) {solvedMatrix <<- y}
+  # function to set a matrix as solved inverted matrix
+  set <- function(y) {solvedMatrix <<- y}
+  # function to get the inverted matrix
   getMatrix <- function() {solvedMatrix}
-  list(get = get, setMatrix = setMatrix, setsolvedMatrix = setsolvedMatrix, getMatrix = getMatrix)
+  ## a list to make all functions accessible
+  list(get = get, set = set, getMatrix = getMatrix)
 }
 
 
-## Write a short comment describing this function
+## this function returns a cached version of the inverted matrix,
+## if it's not present it will generate, set and return the inverted matrix
 
 cacheSolve <- function(x, ...) {
         ## Return a matrix that is the inverse of 'x'
+  ## checks if cachematrix is present, and returns
   m <- x$getMatrix()
   if(!is.null(m)) {
     print("getting cached solved matrix")
     return(m)
   }
+  
+  # get matrix, invert matrix, set matrix in different environment, and return inverted matrix
   m <- x$get()  
   print("solving matrix")
   sm <- solve(m)
-  x$setsolvedMatrix(sm)
+  x$set(sm)
   sm
 }
 
